@@ -32,7 +32,6 @@ function WhichCandidate(props) {
         <div className="profile">
             <div className="profile-entry player-name">{props.name}</div>
             <WhichPic name = {props.name}/>
-
             <WhichParty name = {props.name}/>
 
         </div>
@@ -90,7 +89,7 @@ function WhichPic(props) {
 function AllCandidate(props) {
     let profiles = [];
     for (let i = 0; i < props.names.length; i++) {
-        profiles.push(<WhichCandidate name={props.names[i]}/>)
+        profiles.push(<WhichCandidate name={props.names[i]} />)
     }
     return profiles
 }

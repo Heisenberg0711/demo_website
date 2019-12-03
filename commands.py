@@ -3,4 +3,4 @@ curl -X POST -H "Content-Type: application/json" -d '{
 
 }' http://localhost:5000/convo
 
-curl http://localhost:5000/info
+curl http://localhost:5000/convo

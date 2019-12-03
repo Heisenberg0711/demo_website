@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import { Input } from 'antd';
-import {Text, TextInput, View} from 'react-native';
 
 const { TextArea } = Input;
 
@@ -25,28 +24,33 @@ class SearchBar extends Component {
     };
 
     _handleSub = (event) => {
-        console.log(this.state.candidate);
+        console.log("below is the current message")
+        console.log(this.state.message);
+
+        axios.post('http://localhost:5000/convo',
+            {tweet: this.state.message})
+            .then((response) => {
+                console.log("the response is ");
+                console.log(response.data);
+                this.setState({trump_prob: response.data[0]['Trump']});
+                this.setState({hilary_prob: response.data[1]['Hilary']});
+                this.setState({bernie_prob: response.data[2]['Andrew']});
+                this.setState({andrew_prob: response.data[3]['Bernie']});
+                console.log("handle setstate finished");
+            }, (error) => {
+                console.log(error);
+            });
     }
 
     componentDidMount() {
-        // axios.get('http://localhost:5000/info')
-        //     .then((response) => {
-        //         this.setState({trump_prob: response.data[0]['candidate1']});
-        //         this.setState({hilary_prob: response.data[1]['candidate2']});
-        //         this.setState({bernie_prob: response.data[2]['candidate3']});
-        //         this.setState({andrew_prob: response.data[3]['candidate4']});
-        //     })
-        //     .catch(error => {
-        //         console.log(error);
-        //     });
         console.log(this.state.message)
         axios.post('http://localhost:5000/convo',
             {tweet: this.state.message})
             .then((response) => {
-                this.setState({trump_prob: response.data[0]['candidate1']});
-                this.setState({hilary_prob: response.data[1]['candidate2']});
-                this.setState({bernie_prob: response.data[2]['candidate3']});
-                this.setState({andrew_prob: response.data[4]['tweet']});
+                this.setState({trump_prob: response.data[0]['Trump']});
+                this.setState({hilary_prob: response.data[1]['Hilary']});
+                this.setState({bernie_prob: response.data[2]['Andrew']});
+                this.setState({andrew_prob: response.data[3]['Bernie']});
                 console.log("setstate finished");
             }, (error) => {
                 console.log(error);
@@ -59,20 +63,20 @@ class SearchBar extends Component {
         return (
                 <div className="search-bar">
 
-                    {/*<TextArea*/}
-                    {/*    type="text"*/}
-                    {/*    name="message"*/}
-                    {/*    value={this.state.message}*/}
-                    {/*    onChange={this._handlePress}*/}
-                    {/*    rows = {6}*/}
-                    {/*> </TextArea>*/}
+                    <TextArea
+                        type="text"
+                        name="message"
+                        value={this.state.message}
+                        onChange={this._handlePress}
+                        rows = {6}
+                    > </TextArea>
 
-                    <TextInput
-                        style={{height: 40}}
-                        placeholder="Type here to translate!"
-                        onChangeText={(text) => this.setState({text})}
-                        value={this.state.text}
-                    />
+                    {/*<TextInput*/}
+                    {/*    style={{height: 40}}*/}
+                    {/*    placeholder="Type here to translate!"*/}
+                    {/*    onChangeText={(text) => this.setState({text})}*/}
+                    {/*    value={this.state.text}*/}
+                    {/*/>*/}
 
                     <div className='button__container'>
                         <button className='button' onClick={this._handleSub}>

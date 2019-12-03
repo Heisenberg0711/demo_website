@@ -6,10 +6,11 @@ import bernie from "../assets/images/Bernie.jpg";
 import democrat from "../assets/images/democrat.jpg"
 import republican from "../assets/images/republican.png"
 
-
-
-
-// PythonShell.run('code/test.py', null, function(err){
+// import {PythonShell} from 'python-shell';
+//
+//
+//
+// PythonShell.run('test.py', null, function(err){
 //     if (err) throw err;
 //     console.log('finished');
 // });
@@ -95,12 +96,16 @@ function AllCandidate(props) {
 }
 
 
+
+
 class Profile extends Component {
+
     render() {
         return (
-            <React.Fragment>
+            <div className="profile_container">
                 <AllCandidate names={candidates} parties={party}/>
-            </React.Fragment>
+            </div>
+
         );
     }
 }
